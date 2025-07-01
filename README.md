@@ -84,6 +84,16 @@ TCP-IP 공부
 - htons : 호스트 형태의 바이트 순서를 네트워크로 형태로 바꿔라 
     - short intger(일반적으로 2byte) 데이터를 네트워크 byte order로 변경
 
+1. 빅 엔디안(big endian)
+    - 빅 엔디안 방식은 낮은 주소에 데이터의 높은 바이트(MSB, Most Significant Bit)부터 저장하는 방식입니다.
+2. 리틀 엔디안(little endian)
+    - 리틀 엔디안 방식은 낮은 주소에 데이터의 낮은 바이트(LSB, Least Significant Bit)부터 저장하는 방식입니다.
+     unsigned short htons(unsigned short);	h → n (short)
+     unsigned short ntohs(unsigned short);	n → h (ushort)
+     unsigned long htonl(unsingned long);	n → n (ulong) 
+     unsigned long ntohl(unsigned long);	n → h (ulong)
+
+
 #### IPv4 인터넷 주소의 체계
 클래스 A        네트워크ID(1바이트) + 호스트ID(3바이트)         0 ~ 127 이하(0)
 클래스 B        네트워크ID(2바이트) + 호스트ID(2바이트)         129 ~ 191(10)
@@ -99,3 +109,12 @@ TCP(연결지향형 소켓) - SOCK_STREAM
 UDP(비연결지향형 소켓) - SOCK_DGRAM
 
 ## 2일차 
+
+#### c언어 함수 
+- inet_addr() : 문자열로 되어있는 주소값을 정수값으로 바꿀수있다 
+    -    
+
+#### 리눅스 Tip (커멘드)
+- 복사 : ctrl + insert or ctrl + shift + C 
+- 붙여넣기: shift + insert 
+
