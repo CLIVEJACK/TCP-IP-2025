@@ -118,3 +118,7 @@ UDP(비연결지향형 소켓) - SOCK_DGRAM
 - 복사 : ctrl + insert or ctrl + shift + C 
 - 붙여넣기: shift + insert 
 
+
+## 3일차 
+
+- 좀비프로세스 배움 
