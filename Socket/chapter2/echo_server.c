@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 		close(server_fd);
 		exit(1);
 	}
-	/*클라이언트소ㅔㅅ생성 -클라이언트연결굿락*/
+	/*클라이언트소켓 생성 -클라이언트연결굿락*/
 	client_addr_size = sizeof(client_addr);
 	if((client_fd = accept(server_fd, (struct sockaddr*)&client_addr, &client_addr_size)) == -1) {
 		perror("accept failed");
