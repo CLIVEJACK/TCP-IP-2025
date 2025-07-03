@@ -150,9 +150,6 @@ UDP(비연결지향형 소켓) - SOCK_DGRAM
     htonl            	host 주소 -> network주소 변환(unsigned long)
     ntohl			network 주소 -> host 주소 (unsigned long)
     INADDR_ANY	현재 실행중인 컴퓨터의 IP를 소켓에 부여.
-    
-16 번 부터 보기--------------------------------------------------------
-
 
 - fork를 사용하여 멀티프로세스를 사용 
 - 제대로 처리해주지 않으면 프로세스를 잡아먹는 좀비 프로세스가 됨
