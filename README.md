@@ -196,10 +196,15 @@ UDP(비연결지향형 소켓) - SOCK_DGRAM
         - FD수가 많으면 느림 FD개수 제한 매번 fd_set초기화 필요
 ## 5일차 
 - IO 멀티플레싱  ppt-41
+
     - poll : select보다 유연하고 구조체 배열로 처리(FD수 제한 없음)
         - 구조체 배열로 처리 하기떄문에 FD(파일디스크립트)의 제한이 없음
         1. fds[]에 server socket를 등록하고 읽기 이벤트가 발생하면 client socket을 생성한다.
         2. cliet socket을 등록하고 읽기이벤트가 발생한다면 데이터를 read한다 
+        - poll의 상수 
+            POLLIN  읽기 가능			POLLOUT  쓰기 가능,  
+            POLLET  엣지 트리거 모드		POLLERR  에러 발생,  
+            POLLUP  연결 끊김			POLLRDHUP  peer가 FIN 전송
 
         ```C
         struct pollfd{
@@ -208,3 +213,39 @@ UDP(비연결지향형 소켓) - SOCK_DGRAM
             short revents;  // returned events(실제발생한 이벤트) 이벤트 실행같은거라고 생각하면 됨
         }
         ```
+    
+    - epoll 
+        - 리눅스에 고성능 네트워크 서버 구현에 사용되는 이벤트 기반 멀티 플렉싱 서버로 성능과 확장성 우수(대규모접합)
+        - 상태변환 확인에서 반복문이 필요없다
+
+        - epoll의 상수 
+            EPOLLIN  읽기 가능			EPOLLOUT  쓰기 가능,  
+            EPOLLET  엣지 트리거 모드		EPOLLERR  에러 발생,  
+            EPOLLUP  연결 끊김			EPOLLRDHUP  peer가 FIN 전송
+            
+        - Epoll_wait()함수는 관심있는 fd 들에 무슨 일이 일어났는지를 조사한다. 그리고 사건이 일어나면 
+        (epoll_event).events[ ] 리스트에 일어난 사건들을 저장한다. 또 동시 접속자수에 상관없이 maxevents
+        파라미터로 최대 몇 개까지의 event를 처리할 것인지를 지정해 주고 있다.
+        
+        - Level-Triggered
+            - 읽을게 있으면 계속 이벤트를 발생 
+            - 데이터 들어올 때마나 epoll_wait()발생하고 읽을 때 까지 알림을 한다.
+            - 디폴트로 생성됨
+            
+        - Edge-Triggered
+            - 상태 변화가 있을 때만 한번 발생
+            - 새데이터가 처음 들어올 때 한번만 알림 Read()로 버퍼를 완전히 비우거나 안읽으면 데이터 유실이 일어난다 
+            그래서 반듸 루프 + noo-blocking 소켓 + 전체 버퍼 읽기
+            - EPOLLET 명시 필요
+
+    - UDP 기반 멀티캐스트 & 브로드 캐스트 
+        - 멀티 캐스트 
+            - 특정 멀티캐스트 그룹을 대상으로 데이터를 딱 한번 전송한다 
+            - 그룹에 속하는 클라이언트는 모두 데이터를 수신한다.
+            ex) 같은 네트워크에 있는 모든 장치에게 알림 DHC요청등
+
+        - 브로드캐스트 
+            - 동일한 네트워크 내(서브넷)에 존재하는 호느스에게 데이터를 전송하는 방법
+            - 데이터 전송의 대상이 호스트가 아닌 네트워크이다.
+            ex) 같은 서비스를 구독중인 장치들에게 만 전달한다 IPTV,실시간 스트리밍 서비스, 게임, 모니터링등
+
