@@ -190,4 +190,21 @@ UDP(비연결지향형 소켓) - SOCK_DGRAM
     이것이 IO 멀티 플렉싱이다.
     (하나의 프로세서가 서버 소켓 + 여러 클라이언트 소켓을 관리)
     
-    select함수는 다웃의 파일 디스크립트 등록하여 읽기/쓰기/오류에 대한 이벤트 발생 여부를 관찰한다.
+    - select : select함수는 다웃의 파일 디스크립트 등록하여 읽기/쓰기/오류에 대한 이벤트 발생 여부를 관찰한다.
+        - 간단한 멀티 플레싱으로 
+        - 다양한 운영체제에서 사용가능
+        - FD수가 많으면 느림 FD개수 제한 매번 fd_set초기화 필요
+## 5일차 
+- IO 멀티플레싱  ppt-41
+    - poll : select보다 유연하고 구조체 배열로 처리(FD수 제한 없음)
+        - 구조체 배열로 처리 하기떄문에 FD(파일디스크립트)의 제한이 없음
+        1. fds[]에 server socket를 등록하고 읽기 이벤트가 발생하면 client socket을 생성한다.
+        2. cliet socket을 등록하고 읽기이벤트가 발생한다면 데이터를 read한다 
+
+        ```C
+        struct pollfd{
+            int fd;     // file descriptor
+            short events;   // requested events(관찰할 이벤트) 이벤트 설정같은 느낌이고 
+            short revents;  // returned events(실제발생한 이벤트) 이벤트 실행같은거라고 생각하면 됨
+        }
+        ```
