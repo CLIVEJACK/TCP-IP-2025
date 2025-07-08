@@ -249,3 +249,20 @@ UDP(비연결지향형 소켓) - SOCK_DGRAM
             - 데이터 전송의 대상이 호스트가 아닌 네트워크이다.
             ex) 같은 서비스를 구독중인 장치들에게 만 전달한다 IPTV,실시간 스트리밍 서비스, 게임, 모니터링등
 
+## 6일차 
+
+- 코딩테스트 
+    평가 : 다음과 같은 webpage 배열을 전송하는 웹서버를 구현하시오.
+        클라이언트 인터넷 브라우저로 서버 접속 => http request 형식의 메시지로 서버에 전달 
+        => get/post 요청 방식에 따른 서버 동작
+
+    ```c
+        char webpale[] = "HTTP/1.1 200 OK\r\n"
+                    "Server: Linux Web Server\r\n"
+                    "Content-Type: text/html; charset=UTF-8\r\n\r\n"
+                    "<!DOCTYPE html>\r\n"
+                    "<html><head><title>My Web Page</title>\r\n"
+                    "<style>body { background-color: #FFFF00; }</style></head>\r\n"
+                    "<body><center><h1>Hello world!!</h1><br>\r\n"
+                    "<img src=\"game.jpg\"></center></body></html>\r\n";
+    ```        
