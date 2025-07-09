@@ -267,3 +267,5 @@ UDP(비연결지향형 소켓) - SOCK_DGRAM
                     "<body><center><h1>Hello world!!</h1><br>\r\n"
                     "<img src=\"game.jpg\"></center></body></html>\r\n";
     ```        
+
+
